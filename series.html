@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0b10">
+<title>Naanal Kaadhal | Sennizhal</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b10;color:#f5f5f7;font-family:system-ui,sans-serif}
+header{padding:16px 5%;background:#101016;border-bottom:1px solid #282832}
+header a{color:#c4b5fd;text-decoration:none;font-weight:700}
+main{max-width:850px;margin:auto;padding:22px 5%}
+.poster{height:310px;max-width:260px;margin:10px auto 24px;background:linear-gradient(145deg,#38265b,#17151f);border-radius:12px;display:grid;place-items:center;color:#c4b5fd;text-align:center}
+h1{text-align:center;margin:12px 0}
+.credit{text-align:center;color:#aaaaba;margin-bottom:26px}
+.details{line-height:1.7;color:#d5d5df}
+.details strong{color:#c4b5fd}
+h2{font-size:21px;margin-top:30px}
+.chapter{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid #292936;color:inherit;text-decoration:none}
+.thumb{width:100px;height:115px;flex-shrink:0;border-radius:8px;background:linear-gradient(145deg,#38265b,#17151f);display:grid;place-items:center;color:#c4b5fd;text-align:center;font-size:13px}
+.chapter-info{flex:1}
+.chapter-info h3{font-size:16px;margin:0 0 8px}
+.counts{font-size:12px;color:#aaaaba}
+.open{font-size:13px;color:#c4b5fd;margin-top:8px}
+.note{font-size:12px;color:#888899;line-height:1.6}
+footer{text-align:center;color:#888899;padding:25px;font-size:12px}
+</style>
+</head>
+<body>
+<header><a href="index.html">← Back to Sennizhal</a></header>
+<main>
+<div class="poster">Series poster<br>Coming soon</div>
+<h1>Naanal Kaadhal</h1>
+<div class="credit">Created by G. Sanjai</div>
+
+<div class="details">
+<p><strong>Name:</strong> Naanal Kaadhal</p>
+<p><strong>Genre:</strong> School Romance, Slice of Life</p>
+<p><strong>Story:</strong> Yazhini quietly carries one-sided feelings for Aadhavan. Through school life, friendships and unexpected moments, their story slowly unfolds.</p>
+<p><strong>Chapters:</strong> 10 planned</p>
+<p><strong>Type:</strong> Series</p>
+<p><strong>Created by:</strong> G. Sanjai</p>
+<p><strong>Rating:</strong> ☆ Not rated yet</p>
+</div>
+
+<h2>Chapters</h2>
+<div id="chapters"></div>
+<p class="note">Chapter thumbnails, real vote counts and reader ratings will be connected as those features are built.</p>
+</main>
+<footer>Sennizhal · Original stories, endless worlds.</footer>
+<script>
+const chapters=document.getElementById("chapters");
+for(let i=1;i<=10;i++){
+  const row=document.createElement("a");
+  row.className="chapter";
+  row.href="reader.html?chapter="+i;
+  row.innerHTML=`
+    <div class="thumb">Chapter ${i}<br>Thumbnail</div>
+    <div class="chapter-info">
+      <h3>Chapter ${i}</h3>
+      <div class="counts">♥ 0 Likes &nbsp; · &nbsp; 👎 0 Dislikes</div>
+      <div class="open">Open chapter →</div>
+    </div>`;
+  chapters.appendChild(row);
+}
+</script>
+</body>
+</html>
