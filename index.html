@@ -198,14 +198,32 @@ body.creator-mode .poster-edit {
 </a>
 
 
-      <article class="card" data-name="Shadow Reign">
-        <div class="cover">🌑</div>
-        <div class="info">
-          <h3>Shadow Reign</h3>
-          <p>Dark Fantasy · Demo</p>
-          <div class="status">Coming soon</div>
-        </div>
-      </article>
+      
+<article class="card" data-name="Shadow Reign">
+  <div class="poster-wrap" style="height:220px">
+    <div class="cover" id="shadowReignCover"
+      style="height:100%;background:linear-gradient(145deg,#25254a,#15151f);font-size:20px;text-align:center;padding:12px">
+      🌑
+    </div>
+
+    <button type="button" class="poster-edit"
+      aria-label="Edit Shadow Reign poster"
+      onclick="event.preventDefault();event.stopPropagation();document.getElementById('shadowReignUpload').click()">
+      ✎
+    </button>
+
+    <input type="file" id="shadowReignUpload"
+      accept="image/*" hidden
+      onchange="changePoster(event,'shadowReignCover')">
+  </div>
+
+  <div class="info">
+    <h3>Shadow Reign</h3>
+    <p>Dark Fantasy · Demo</p>
+    <div class="status">Coming soon</div>
+  </div>
+</article>
+
       <article class="card" data-name="Crimson Blade">
         <div class="cover two">⚔️</div>
         <div class="info">
