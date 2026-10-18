@@ -176,5 +176,55 @@
       }
     );
   </script>
+
+<section id="creatorLogin" style="max-width:650px;margin:20px auto;padding:20px;background:#1b1b23;color:white;border-radius:12px;font-family:Arial,sans-serif">
+  <h2>Creator Sign In</h2>
+  <p>Sign in to access Sennizhal Creator Studio.</p>
+
+  <label for="creatorEmail">Email</label>
+  <input id="creatorEmail" type="email" autocomplete="username"
+    placeholder="Your email"
+    style="display:block;width:100%;padding:12px;margin:8px 0;box-sizing:border-box">
+
+  <label for="creatorPassword">Password</label>
+  <input id="creatorPassword" type="password" autocomplete="current-password"
+    placeholder="Your password"
+    style="display:block;width:100%;padding:12px;margin:8px 0;box-sizing:border-box">
+
+  <button id="creatorSignIn" type="button"
+    style="padding:12px 18px;margin-top:10px;cursor:pointer">
+    Sign In
+  </button>
+
+  <p id="loginStatus" role="status"></p>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+  const loginButton = document.getElementById("creatorSignIn");
+
+  loginButton.addEventListener("click", async function () {
+    const email = document.getElementById("creatorEmail").value.trim();
+    const password = document.getElementById("creatorPassword").value;
+    const status = document.getElementById("loginStatus");
+
+    status.textContent = "Signing in...";
+
+    const { data, error } = await sennizhalDB.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      status.textContent = "Sign-in failed. Check your details and try again.";
+      return;
+    }
+
+    status.textContent = "Signed in successfully!";
+  });
+</script>
+
 </body>
 </html>
