@@ -144,10 +144,18 @@ body.creator-mode .poster-edit {
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">SENNI<span>ZHAL</span></div>
-    <span>☾ Manga Universe</span>
-  </header>
+  
+<header>
+  <div class="logo">SENNI<span>ZHAL</span></div>
+  <span>☾ Manga Universe</span>
+  <button class="button" id="creatorModeButton"
+    type="button"
+    style="margin-top:0;padding:8px;font-size:12px"
+    onclick="toggleCreatorMode()">
+    Owner Preview
+  </button>
+</header>
+
 
   <section class="hero">
     <div class="tag">YOUR NEXT ADVENTURE STARTS HERE</div>
@@ -282,6 +290,15 @@ function changePoster(event, coverId) {
   };
 
   reader.readAsDataURL(file);
+}
+
+function toggleCreatorMode() {
+  const enabled = document.body.classList.toggle("creator-mode");
+  const button = document.getElementById("creatorModeButton");
+
+  button.textContent = enabled
+    ? "Exit Owner Preview"
+    : "Owner Preview";
 }
 
   </script>
