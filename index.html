@@ -412,6 +412,34 @@ const savedPoster = localStorage.getItem(
   "sennizhalPoster_naanalkadhalCover"
 );
 
+const savedShadowReign = localStorage.getItem(
+  "sennizhalPoster_shadowReignCover"
+);
+if (savedShadowReign) {
+  displayPoster("shadowReignCover", savedShadowReign);
+}
+
+const savedCrimsonBlade = localStorage.getItem(
+  "sennizhalPoster_crimsonBladeCover"
+);
+if (savedCrimsonBlade) {
+  displayPoster("crimsonBladeCover", savedCrimsonBlade);
+}
+
+const savedOceanOfStars = localStorage.getItem(
+  "sennizhalPoster_oceanOfStarsCover"
+);
+if (savedOceanOfStars) {
+  displayPoster("oceanOfStarsCover", savedOceanOfStars);
+}
+
+const savedSilentEcho = localStorage.getItem(
+  "sennizhalPoster_silentEchoCover"
+);
+if (savedSilentEcho) {
+  displayPoster("silentEchoCover", savedSilentEcho);
+}
+
 if (savedPoster) {
   displayPoster("naanalkadhalCover", savedPoster);
 }
