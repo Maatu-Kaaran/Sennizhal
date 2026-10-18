@@ -264,6 +264,22 @@ body.creator-mode .poster-edit {
       empty.style.display = visible ? 'none' : 'block';
     });
     
+function displayPoster(coverId, imageData) {
+  const cover = document.getElementById(coverId);
+  if (!cover || !imageData) return;
+
+  cover.style.background = "#171720";
+  cover.style.padding = "0";
+  cover.style.fontSize = "0";
+  cover.innerHTML = "";
+
+  const img = document.createElement("img");
+  img.src = imageData;
+  img.alt = "Manga poster";
+  img.className = "poster-image";
+  cover.appendChild(img);
+}
+
 function changePoster(event, coverId) {
   const file = event.target.files[0];
   if (!file) return;
@@ -276,39 +292,43 @@ function changePoster(event, coverId) {
   const reader = new FileReader();
 
   reader.onload = function () {
-    const cover = document.getElementById(coverId);
-    cover.style.background = "#171720";
-    cover.style.padding = "0";
-    cover.style.fontSize = "0";
-    cover.innerHTML = "";
+    try {
+      localStorage.setItem(
+        "sennizhalPoster_" + coverId,
+        reader.result
+      );
 
-    const img = document.createElement("img");
-    img.src = reader.result;
-    img.alt = "Manga poster";
-    img.className = "poster-image";
-    cover.appendChild(img);
+      displayPoster(coverId, reader.result);
+    } catch (error) {
+      alert("Image could not be saved. Try a smaller image.");
+    }
   };
 
   reader.readAsDataURL(file);
 }
 
-function updateCreatorModeButton() {
-  const button = document.getElementById("creatorModeButton");
-  button.textContent = "Owner Preview";
+const savedPoster = localStorage.getItem(
+  "sennizhalPoster_naanalkadhalCover"
+);
+
+if (savedPoster) {
+  displayPoster("naanalkadhalCover", savedPoster);
 }
 
-function toggleCreatorMode() {
-  const enabled = document.body.classList.toggle("creator-mode");
 
-  localStorage.setItem("sennizhalOwnerPreview", enabled ? "on" : "off");
-  updateCreatorModeButton();
+
+function toggleCreatorMode() {
+  document.body.classList.add("creator-mode");
+  localStorage.setItem("sennizhalOwnerPreview", "on");
+
+  const button = document.getElementById("creatorModeButton");
+  button.textContent = "Owner Preview";
 }
 
 if (localStorage.getItem("sennizhalOwnerPreview") === "on") {
   document.body.classList.add("creator-mode");
 }
 
-updateCreatorModeButton();
 
 
 
