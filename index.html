@@ -343,6 +343,7 @@ function displayPoster(coverId, imageData) {
   cover.appendChild(img);
 }
 
+
 function changePoster(event, coverId) {
   const file = event.target.files[0];
   if (!file) return;
@@ -355,20 +356,57 @@ function changePoster(event, coverId) {
   const reader = new FileReader();
 
   reader.onload = function () {
-    try {
-      localStorage.setItem(
-        "sennizhalPoster_" + coverId,
-        reader.result
-      );
+    const image = new Image();
 
-      displayPoster(coverId, reader.result);
-    } catch (error) {
-      alert("Image could not be saved. Try a smaller image.");
-    }
+    image.onload = function () {
+      try {
+        const maxWidth = 700;
+        const maxHeight = 1000;
+
+        const scale = Math.min(
+          1,
+          maxWidth / image.width,
+          maxHeight / image.height
+        );
+
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(image.width * scale);
+        canvas.height = Math.round(image.height * scale);
+
+        const context = canvas.getContext("2d");
+        context.fillStyle = "#171720";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(
+          image, 0, 0, canvas.width, canvas.height
+        );
+
+        const compressedImage = canvas.toDataURL(
+          "image/jpeg", 0.65
+        );
+
+        localStorage.setItem(
+          "sennizhalPoster_" + coverId,
+          compressedImage
+        );
+
+        displayPoster(coverId, compressedImage);
+      } catch (error) {
+        alert(
+          "Could not save the poster. Storage may be full. Try another image."
+        );
+      }
+    };
+
+    image.onerror = function () {
+      alert("Could not open this image. Please try another.");
+    };
+
+    image.src = reader.result;
   };
 
   reader.readAsDataURL(file);
 }
+
 
 const savedPoster = localStorage.getItem(
   "sennizhalPoster_naanalkadhalCover"
