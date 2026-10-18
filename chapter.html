@@ -3,26 +3,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Read Manga | Sennizhal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manga Reader | Sennizhal</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       background: #101010;
-      color: white;
+      color: #fff;
       font-family: Arial, sans-serif;
     }
 
     header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 14px;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
       background: #191919;
       border-bottom: 1px solid #333;
     }
@@ -30,55 +29,49 @@
     header a {
       color: white;
       text-decoration: none;
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .brand {
+      color: #f0b429;
       font-size: 21px;
       font-weight: bold;
-      color: #f0b429;
     }
 
     main {
-      max-width: 800px;
+      max-width: 850px;
       margin: auto;
       padding: 18px 12px;
-      text-align: center;
     }
 
-    h1 {
-      font-size: 23px;
-      margin-bottom: 8px;
-    }
+    h1 { font-size: 24px; text-align: center; }
+    h2 { font-size: 19px; }
 
-    .notice {
-      color: #aaa;
-      font-size: 14px;
-      margin-bottom: 22px;
-    }
-
-    .manga-page {
-      width: 100%;
-      min-height: 240px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #202020;
+    .panel {
+      background: #1b1b1b;
       border: 1px solid #383838;
-      margin: 12px 0;
-      color: #aaa;
-      padding: 20px;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 18px;
     }
 
-    .controls {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 24px 0;
+    label {
+      display: block;
+      margin: 16px 0 8px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 7px;
+      border: 1px solid #444;
+      background: #252525;
+      color: white;
     }
 
     button {
-      padding: 12px 20px;
+      padding: 12px 16px;
       border: none;
       border-radius: 7px;
       background: #f0b429;
@@ -88,16 +81,63 @@
     }
 
     button:disabled {
-      opacity: 0.4;
+      opacity: .4;
       cursor: not-allowed;
     }
 
-    footer {
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    #pages {
       text-align: center;
-      padding: 20px;
+    }
+
+    .manga-page {
+      margin: 12px auto;
+      width: 100%;
+      background: #202020;
+      border: 1px solid #383838;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .manga-page img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .empty {
+      padding: 45px 15px;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    #pageNumber {
+      text-align: center;
+      color: #ccc;
+    }
+
+    #status {
+      color: #f0b429;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      padding: 22px;
+      text-align: center;
       color: #888;
       font-size: 13px;
     }
+
+    [hidden] { display: none !important; }
   </style>
 </head>
 
@@ -110,66 +150,211 @@
 
   <main>
     <h1 id="chapterTitle">Manga Reader</h1>
-    <p class="notice">
-      Your reading journey starts here.
-    </p>
 
-    <div id="pages"></div>
+    <section class="panel">
+      <h2>Upload Chapter</h2>
+      <p>Choose a PDF or select manga page images from your phone.</p>
 
-    <div class="controls">
-      <button id="prevBtn" onclick="changePage(-1)">
-        Previous
-      </button>
-      <button id="nextBtn" onclick="changePage(1)">
-        Next
-      </button>
+      <label for="pdfUpload">Chapter PDF</label>
+      <input
+        type="file"
+        id="pdfUpload"
+        accept=".pdf,application/pdf"
+      >
+
+      <label for="imageUpload">Manga page images</label>
+      <input
+        type="file"
+        id="imageUpload"
+        accept="image/*"
+        multiple
+      >
+
+      <p id="status" aria-live="polite">
+        No chapter loaded yet.
+      </p>
+    </section>
+
+    <section class="panel">
+      <label for="readingMode">Reading Mode</label>
+      <select id="readingMode">
+        <option value="page">Page by page</option>
+        <option value="vertical">Vertical scrolling</option>
+      </select>
+    </section>
+
+    <div id="pages">
+      <div class="panel empty">
+        Your manga pages will appear here.<br>
+        Upload a PDF or choose images to begin reading.
+      </div>
     </div>
 
-    <p id="pageNumber">Page 1 of 3</p>
+    <div class="controls" id="controls" hidden>
+      <button id="prevBtn" disabled>Previous</button>
+      <button id="nextBtn">Next</button>
+    </div>
+
+    <p id="pageNumber"></p>
   </main>
 
-  <footer>
-    © Sennizhal — Original Manga
-  </footer>
+  <footer>© Sennizhal — Original Manga</footer>
 
   <script>
-    const mangaPages = [
-      "Manga page 1 will appear here.",
-      "Manga page 2 will appear here.",
-      "Manga page 3 will appear here."
-    ];
+    const pdfUpload = document.getElementById("pdfUpload");
+    const imageUpload = document.getElementById("imageUpload");
+    const readingMode = document.getElementById("readingMode");
+    const pagesContainer = document.getElementById("pages");
+    const status = document.getElementById("status");
+    const controls = document.getElementById("controls");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const pageNumber = document.getElementById("pageNumber");
+    const chapterTitle = document.getElementById("chapterTitle");
 
+    let mangaPages = [];
     let currentPage = 0;
+    let pdfUrl = null;
+
+    function releaseImages() {
+      mangaPages.forEach(page => {
+        if (page.url) URL.revokeObjectURL(page.url);
+      });
+      mangaPages = [];
+    }
+
+    function resetReader() {
+      releaseImages();
+
+      if (pdfUrl) {
+        URL.revokeObjectURL(pdfUrl);
+        pdfUrl = null;
+      }
+
+      currentPage = 0;
+      pagesContainer.replaceChildren();
+      pageNumber.textContent = "";
+      controls.hidden = true;
+    }
+
+    function showEmpty(message) {
+      const box = document.createElement("div");
+      box.className = "panel empty";
+      box.textContent = message;
+      pagesContainer.replaceChildren(box);
+    }
 
     function renderPage() {
-      document.getElementById("pages").innerHTML =
-        '<div class="manga-page">' +
-        mangaPages[currentPage] +
-        '</div>';
+      if (!mangaPages.length) return;
 
-      document.getElementById("pageNumber").textContent =
-        "Page " + (currentPage + 1) +
-        " of " + mangaPages.length;
+      const vertical = readingMode.value === "vertical";
+      pagesContainer.replaceChildren();
+      pagesContainer.style.display = vertical ? "block" : "block";
 
-      document.getElementById("prevBtn").disabled =
-        currentPage === 0;
+      mangaPages.forEach((page, index) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "manga-page";
 
-      document.getElementById("nextBtn").disabled =
-        currentPage === mangaPages.length - 1;
+        if (!vertical && index !== currentPage) {
+          wrapper.hidden = true;
+        }
+
+        const img = document.createElement("img");
+        img.src = page.url;
+        img.alt = "Manga page " + (index + 1);
+        img.loading = vertical ? "lazy" : "eager";
+
+        wrapper.appendChild(img);
+        pagesContainer.appendChild(wrapper);
+      });
+
+      controls.hidden = vertical;
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage === mangaPages.length - 1;
+
+      pageNumber.textContent = vertical
+        ? mangaPages.length + " pages · Vertical scrolling"
+        : "Page " + (currentPage + 1) + " of " + mangaPages.length;
     }
 
     function changePage(direction) {
-      currentPage += direction;
-
-      if (currentPage < 0) currentPage = 0;
-      if (currentPage >= mangaPages.length) {
-        currentPage = mangaPages.length - 1;
-      }
-
+      currentPage = Math.max(
+        0,
+        Math.min(mangaPages.length - 1, currentPage + direction)
+      );
       renderPage();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    renderPage();
+    prevBtn.addEventListener("click", () => changePage(-1));
+    nextBtn.addEventListener("click", () => changePage(1));
+
+    readingMode.addEventListener("change", renderPage);
+
+    imageUpload.addEventListener("change", () => {
+      const files = Array.from(imageUpload.files || [])
+        .filter(file => file.type.startsWith("image/"))
+        .sort((a, b) =>
+          a.name.localeCompare(b.name, undefined, {
+            numeric: true,
+            sensitivity: "base"
+          })
+        );
+
+      if (!files.length) return;
+
+      resetReader();
+
+      mangaPages = files.map(file => ({
+        url: URL.createObjectURL(file)
+      }));
+
+      pdfUpload.value = "";
+      chapterTitle.textContent = "Manga Reader";
+      status.textContent = files.length + " image page(s) loaded.";
+      renderPage();
+    });
+
+    pdfUpload.addEventListener("change", () => {
+      const file = pdfUpload.files && pdfUpload.files[0];
+      if (!file) return;
+
+      if (file.type !== "application/pdf" &&
+          !file.name.toLowerCase().endsWith(".pdf")) {
+        status.textContent = "Please select a PDF file.";
+        return;
+      }
+
+      resetReader();
+
+      pdfUrl = URL.createObjectURL(file);
+
+      const frame = document.createElement("iframe");
+      frame.src = pdfUrl;
+      frame.title = "Manga chapter PDF";
+      frame.style.width = "100%";
+      frame.style.height = "75vh";
+      frame.style.border = "0";
+      frame.style.background = "#fff";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "manga-page";
+      wrapper.appendChild(frame);
+      pagesContainer.replaceChildren(wrapper);
+
+      pdfUpload.value = "";
+      imageUpload.value = "";
+      chapterTitle.textContent = "Manga Reader";
+      status.textContent =
+        "PDF opened. Page navigation depends on your browser's PDF viewer.";
+      pageNumber.textContent =
+        "For custom page-by-page controls, upload individual page images.";
+    });
+
+    window.addEventListener("beforeunload", () => {
+      releaseImages();
+      if (pdfUrl) URL.revokeObjectURL(pdfUrl);
+    });
   </script>
 </body>
 </html>
