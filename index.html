@@ -224,30 +224,75 @@ body.creator-mode .poster-edit {
   </div>
 </article>
 
-      <article class="card" data-name="Crimson Blade">
-        <div class="cover two">⚔️</div>
-        <div class="info">
-          <h3>Crimson Blade</h3>
-          <p>Action · Demo</p>
-          <div class="status">Coming soon</div>
-        </div>
-      </article>
-      <article class="card" data-name="Ocean of Stars">
-        <div class="cover three">🌌</div>
-        <div class="info">
-          <h3>Ocean of Stars</h3>
-          <p>Adventure · Demo</p>
-          <div class="status">Coming soon</div>
-        </div>
-      </article>
-      <article class="card" data-name="Silent Echo">
-        <div class="cover four">🌘</div>
-        <div class="info">
-          <h3>Silent Echo</h3>
-          <p>Mystery · Demo</p>
-          <div class="status">Coming soon</div>
-        </div>
-      </article>
+      
+<article class="card" data-name="Crimson Blade">
+  <div class="poster-wrap" style="height:220px">
+    <div class="cover" id="crimsonBladeCover"
+      style="height:100%;background:linear-gradient(145deg,#702323,#15151f);font-size:20px;text-align:center;padding:12px">
+      ⚔️
+    </div>
+    <button type="button" class="poster-edit"
+      aria-label="Edit Crimson Blade poster"
+      onclick="event.preventDefault();event.stopPropagation();document.getElementById('crimsonBladeUpload').click()">
+      ✎
+    </button>
+    <input type="file" id="crimsonBladeUpload"
+      accept="image/*" hidden
+      onchange="changePoster(event,'crimsonBladeCover')">
+  </div>
+  <div class="info">
+    <h3>Crimson Blade</h3>
+    <p>Action · Demo</p>
+    <div class="status">Coming soon</div>
+  </div>
+</article>
+
+      
+<article class="card" data-name="Ocean of Stars">
+  <div class="poster-wrap" style="height:220px">
+    <div class="cover" id="oceanOfStarsCover"
+      style="height:100%;background:linear-gradient(145deg,#174a70,#15151f);font-size:20px;text-align:center;padding:12px">
+      🌌
+    </div>
+    <button type="button" class="poster-edit"
+      aria-label="Edit Ocean of Stars poster"
+      onclick="event.preventDefault();event.stopPropagation();document.getElementById('oceanOfStarsUpload').click()">
+      ✎
+    </button>
+    <input type="file" id="oceanOfStarsUpload"
+      accept="image/*" hidden
+      onchange="changePoster(event,'oceanOfStarsCover')">
+  </div>
+  <div class="info">
+    <h3>Ocean of Stars</h3>
+    <p>Adventure · Demo</p>
+    <div class="status">Coming soon</div>
+  </div>
+</article>
+
+      
+<article class="card" data-name="Silent Echo">
+  <div class="poster-wrap" style="height:220px">
+    <div class="cover" id="silentEchoCover"
+      style="height:100%;background:linear-gradient(145deg,#444454,#15151f);font-size:20px;text-align:center;padding:12px">
+      🌑
+    </div>
+    <button type="button" class="poster-edit"
+      aria-label="Edit Silent Echo poster"
+      onclick="event.preventDefault();event.stopPropagation();document.getElementById('silentEchoUpload').click()">
+      ✎
+    </button>
+    <input type="file" id="silentEchoUpload"
+      accept="image/*" hidden
+      onchange="changePoster(event,'silentEchoCover')">
+  </div>
+  <div class="info">
+    <h3>Silent Echo</h3>
+    <p>Mystery · Demo</p>
+    <div class="status">Coming soon</div>
+  </div>
+</article>
+
     </div>
     <p class="empty" id="empty">No manga found. Try another name.</p>
 
