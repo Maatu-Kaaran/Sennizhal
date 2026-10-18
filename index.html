@@ -292,14 +292,25 @@ function changePoster(event, coverId) {
   reader.readAsDataURL(file);
 }
 
+function updateCreatorModeButton() {
+  const button = document.getElementById("creatorModeButton");
+  button.textContent = "Owner Preview";
+}
+
 function toggleCreatorMode() {
   const enabled = document.body.classList.toggle("creator-mode");
-  const button = document.getElementById("creatorModeButton");
 
-  button.textContent = enabled
-    ? "Exit Owner Preview"
-    : "Owner Preview";
+  localStorage.setItem("sennizhalOwnerPreview", enabled ? "on" : "off");
+  updateCreatorModeButton();
 }
+
+if (localStorage.getItem("sennizhalOwnerPreview") === "on") {
+  document.body.classList.add("creator-mode");
+}
+
+updateCreatorModeButton();
+
+
 
   </script>
 </body>
