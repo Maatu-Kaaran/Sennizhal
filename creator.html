@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sennizhal | Creator Studio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #101014;
+      color: #f5f5f7;
+      font-family: Arial, sans-serif;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #d8a5ff;
+      text-align: center;
+    }
+
+    .intro {
+      color: #b8b8c2;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    form {
+      margin-top: 25px;
+      padding: 20px;
+      background: #1b1b23;
+      border: 1px solid #353541;
+      border-radius: 14px;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #444454;
+      border-radius: 8px;
+      background: #121218;
+      color: white;
+      font-size: 16px;
+    }
+
+    input[type="file"] {
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 14px;
+      border: 0;
+      border-radius: 9px;
+      background: #c28aff;
+      color: #191020;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 12px;
+      background: #292333;
+      border-radius: 8px;
+      color: #e4d5f5;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    a {
+      color: #d8a5ff;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Sennizhal Creator Studio</h1>
+
+    <p class="intro">
+      Prepare your manga series and chapters.
+    </p>
+
+    <div class="notice">
+      Preview form only: your information and files are not
+      uploaded or saved online yet. Do not use this page to
+      publish private or sensitive files.
+    </div>
+
+    <form id="mangaForm">
+      <h2>Manga series</h2>
+
+      <label for="mangaTitle">Manga title</label>
+      <input
+        id="mangaTitle"
+        type="text"
+        placeholder="Enter manga title"
+        required
+      >
+
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        rows="4"
+        placeholder="Write a short description"
+      ></textarea>
+
+      <label for="language">Manga language</label>
+      <select id="language">
+        <option value="English">English</option>
+        <option value="Tamil">Tamil</option>
+      </select>
+
+      <label for="cover">Manga cover image</label>
+      <input
+        id="cover"
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        required
+      >
+
+      <h2>First chapter</h2>
+
+      <label for="chapterNumber">Chapter number</label>
+      <input
+        id="chapterNumber"
+        type="number"
+        min="1"
+        value="1"
+        required
+      >
+
+      <label for="chapterFile">Chapter PDF or page image</label>
+      <input
+        id="chapterFile"
+        type="file"
+        accept="application/pdf,image/jpeg,image/png,image/webp"
+        required
+      >
+
+      <button type="submit">Prepare manga</button>
+    </form>
+
+    <p><a href="index.html">← Back to Sennizhal home</a></p>
+
+    <p id="status" role="status"></p>
+  </main>
+
+  <script>
+    document.getElementById("mangaForm").addEventListener(
+      "submit",
+      function (event) {
+        event.preventDefault();
+
+        document.getElementById("status").textContent =
+          "Form preview complete. Online saving is not connected yet.";
+      }
+    );
+  </script>
+</body>
+</html>
