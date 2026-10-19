@@ -190,12 +190,54 @@
       >
 
       <label for="chapterFile">Chapter PDF or page image</label>
-      <input
-        id="chapterFile"
-        type="file"
-        accept="application/pdf,image/jpeg,image/png,image/webp"
-        required
-      >
+      
+<label for="uploadType">Chapter upload type</label>
+<select id="uploadType" required>
+  <option value="pdf">PDF chapter</option>
+  <option value="images">Multiple page images</option>
+</select>
+
+<label for="chapterFile">Chapter PDF</label>
+<input
+  id="chapterFile"
+  type="file"
+  accept="application/pdf"
+  required
+>
+
+<label for="chapterImages">Chapter page images</label>
+<input
+  id="chapterImages"
+  type="file"
+  accept="image/jpeg,image/png,image/webp"
+  multiple
+  hidden
+>
+
+<script>
+  const uploadType = document.getElementById("uploadType");
+  const chapterFile = document.getElementById("chapterFile");
+  const chapterImages = document.getElementById("chapterImages");
+
+  function updateChapterUpload() {
+    const useImages = uploadType.value === "images";
+
+    chapterFile.hidden = useImages;
+    chapterFile.required = !useImages;
+
+    chapterImages.hidden = !useImages;
+    chapterImages.required = useImages;
+
+    chapterFile.previousElementSibling.textContent =
+      "Chapter PDF";
+    chapterImages.previousElementSibling.textContent =
+      "Chapter page images";
+  }
+
+  uploadType.addEventListener("change", updateChapterUpload);
+  updateChapterUpload();
+</script>
+
 
       <button type="submit">Prepare manga</button>
     </form>
