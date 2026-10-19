@@ -129,6 +129,46 @@
         <option value="English">English</option>
         <option value="Tamil">Tamil</option>
       </select>
+      <label>Genre (select all that apply)</label>
+
+<div id="genreOptions">
+  <label><input type="checkbox" name="genre" value="Romance"> Romance</label>
+  <label><input type="checkbox" name="genre" value="Action"> Action</label>
+  <label><input type="checkbox" name="genre" value="Comedy"> Comedy</label>
+  <label><input type="checkbox" name="genre" value="Adventure"> Adventure</label>
+  <label><input type="checkbox" name="genre" value="Drama"> Drama</label>
+  <label><input type="checkbox" name="genre" value="Fantasy"> Fantasy</label>
+  <label><input type="checkbox" name="genre" value="Horror"> Horror</label>
+  <label><input type="checkbox" name="genre" value="Mystery"> Mystery</label>
+  <label><input type="checkbox" name="genre" value="Sci-Fi"> Sci-Fi</label>
+  <label><input type="checkbox" name="genre" value="Slice of Life"> Slice of Life</label>
+  <label><input type="checkbox" name="genre" value="Sports"> Sports</label>
+  <label><input type="checkbox" name="genre" value="Thriller"> Thriller</label>
+  <label><input type="checkbox" name="genre" value="Supernatural"> Supernatural</label>
+  <label><input type="checkbox" name="genre" value="Historical"> Historical</label>
+</div>
+
+<style>
+  #genreOptions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  #genreOptions label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-weight: normal;
+  }
+
+  #genreOptions input[type="checkbox"] {
+    width: auto;
+    accent-color: #c28aff;
+  }
+           </style>
 
       <label for="cover">Manga cover image</label>
       <input
