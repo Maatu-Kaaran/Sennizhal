@@ -8,4 +8,4 @@ const sennizhalDB = window.supabase.createClient(
 );
 
 console.log("Sennizhal Supabase client initialized");
-
+window.sennizhalDB = sennizhalDB;
