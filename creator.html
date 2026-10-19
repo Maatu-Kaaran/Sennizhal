@@ -223,6 +223,15 @@
   multiple
   hidden
 >
+      
+<div id="chapterPreviewContainer" hidden>
+  <p>Chapter page previews</p>
+  <div
+    id="chapterPreview"
+    style="display: flex; flex-wrap: wrap; gap: 10px;"
+  ></div>
+</div>
+
 
 <script>
   const uploadType = document.getElementById("uploadType");
@@ -349,6 +358,46 @@ coverInput.addEventListener("change", function () {
     coverPreview.removeAttribute("src");
     coverPreviewContainer.hidden = true;
   }
+});
+
+const chapterImagesInput = document.getElementById("chapterImages");
+const chapterPreview = document.getElementById("chapterPreview");
+const chapterPreviewContainer =
+  document.getElementById("chapterPreviewContainer");
+
+chapterImagesInput.addEventListener("change", function () {
+  chapterPreview.innerHTML = "";
+
+  const files = Array.from(chapterImagesInput.files);
+
+  if (files.length === 0) {
+    chapterPreviewContainer.hidden = true;
+    return;
+  }
+
+  files.forEach(function (file, index) {
+    if (!file.type.startsWith("image/")) return;
+
+    const wrapper = document.createElement("div");
+    wrapper.style.width = "100px";
+
+    const image = document.createElement("img");
+    image.src = URL.createObjectURL(file);
+    image.alt = "Chapter page " + (index + 1);
+    image.style.width = "100px";
+    image.style.height = "140px";
+    image.style.objectFit = "contain";
+    image.style.borderRadius = "6px";
+
+    const caption = document.createElement("p");
+    caption.textContent = "Page " + (index + 1);
+
+    wrapper.appendChild(image);
+    wrapper.appendChild(caption);
+    chapterPreview.appendChild(wrapper);
+  });
+
+  chapterPreviewContainer.hidden = chapterPreview.children.length === 0;
 });
 
 </script>
