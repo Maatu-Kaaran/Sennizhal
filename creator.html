@@ -177,6 +177,16 @@
         accept="image/jpeg,image/png,image/webp"
         required
       >
+      
+<div id="coverPreviewContainer" hidden>
+  <p>Cover preview</p>
+  <img
+    id="coverPreview"
+    alt="Manga cover preview"
+    style="max-width: 180px; max-height: 240px; object-fit: contain; border-radius: 8px;"
+  >
+</div>
+
 
       <h2>First chapter</h2>
 
@@ -323,6 +333,24 @@
 
     status.textContent = "Signed in successfully!";
   });
+  
+const coverInput = document.getElementById("cover");
+const coverPreview = document.getElementById("coverPreview");
+const coverPreviewContainer =
+  document.getElementById("coverPreviewContainer");
+
+coverInput.addEventListener("change", function () {
+  const file = coverInput.files[0];
+
+  if (file && file.type.startsWith("image/")) {
+    coverPreview.src = URL.createObjectURL(file);
+    coverPreviewContainer.hidden = false;
+  } else {
+    coverPreview.removeAttribute("src");
+    coverPreviewContainer.hidden = true;
+  }
+});
+
 </script>
 
 </body>
