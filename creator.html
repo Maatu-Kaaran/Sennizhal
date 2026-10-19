@@ -167,14 +167,31 @@
 
   <script>
     document.getElementById("mangaForm").addEventListener(
-      "submit",
-      function (event) {
-        event.preventDefault();
+  "submit",
+  function (event) {
+    event.preventDefault();
 
-        document.getElementById("status").textContent =
-          "Form preview complete. Online saving is not connected yet.";
-      }
-    );
+    const title = document.getElementById("mangaTitle").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const language = document.getElementById("language").value;
+    const chapterNumber = document.getElementById("chapterNumber").value;
+    const cover = document.getElementById("cover").files[0];
+    const chapterFile = document.getElementById("chapterFile").files[0];
+
+    const status = document.getElementById("status");
+
+    if (!title || !cover || !chapterFile) {
+      status.textContent = "Please complete all required fields and select both files.";
+      return;
+    }
+
+    status.textContent =
+      "Form received! Title: " + title +
+      " | Language: " + language +
+      " | Chapter: " + chapterNumber +
+      ". Online saving is the next step.";
+  }
+);
   </script>
 
 <section id="creatorLogin" style="max-width:650px;margin:20px auto;padding:20px;background:#1b1b23;color:white;border-radius:12px;font-family:Arial,sans-serif">
